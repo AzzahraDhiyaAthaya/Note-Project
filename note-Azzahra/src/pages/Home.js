@@ -57,6 +57,20 @@ export default function Home() {
     })
   }, [])
 
+  // function deleteRecord() {
+  //       axios.delete('https://note-be-blush.vercel.app/api/v1/note/7')
+  //       .then(() => {
+  //           alert("data has deleted")
+  //       })
+  //   }
+
+  const deleteById = id => {
+    setNoteData(oldData => {
+      return oldData.filter(note => note.id !== id)
+      
+    })
+    alert("Note Has Deleted")
+  }
 
     return( 
 
@@ -72,7 +86,7 @@ export default function Home() {
           <hr/>
           <p>{note.description}</p>
           <div className="note__footer" style={{ justifyContent: "flex-end" }}>
-          <button className="note__delete">Delete</button>
+          <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
           </div>
         </div>
         <br/>

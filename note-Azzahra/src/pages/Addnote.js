@@ -1,44 +1,36 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../css/addNote.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Addnote () {
 
-  
-    const [noteData, setNoteData] = useState([]);
-    const [post, setPost] = useState({
-      title: '',
-      body: ''
-    })
+    const navigation = useNavigate();
+    const [noteData, setNoteData] = useState([])
+      const [post, setPost] = useState({
+        title: '',
+        description: ''
+      })
 
     // useEffect(() => {
     //   axios.get('https://note-be-blush.vercel.app/api/v1/note/7').then(res => console.log(res.data.data))
     // }, [])
 
-    useEffect(() => {
-      axios.get('https://note-be-blush.vercel.app/api/v1/note')
-      .then(result => {
-          console.log('data API', result);
-          setNoteData(result.data.data)
-      })
-      .catch(err => {
-          console.log('error: ', err);
-      })
-    }, [])
-
     const handleInput = (e) => {
       setPost({...post, [e.target.name]: e.target.value})
     }
 
-    function handleSubmit(event) {
-      event.preventDefault()
+    function handleSubmit(e) {
+      e.preventDefault()
       console.log(post)
-      axios.post('https://note-be-blush.vercel.app/api/v1/note', {post})
+      axios.post('https://note-be-blush.vercel.app/api/v1/note', post)
       .then(result => {
         console.log('data API', result);
-        setPost(result.data.data)
+        navigation('/')
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        alert(err.response.data.error)
+      })
     }
 
     return(
@@ -54,7 +46,7 @@ function Addnote () {
           <br/>
           <br/>
           <label for="lname">Description :</label><br/>
-          <input type="text" onChange={handleInput} name="body" value={noteData.description} placeholder="type..."/><br/><br/>
+          <input type="text" onChange={handleInput} name="description" placeholder="type..."/><br/><br/>
           <br/>
           <input className="submit" type="submit" value="Submit"/>
         </form> 
