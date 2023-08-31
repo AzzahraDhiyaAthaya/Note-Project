@@ -1,11 +1,13 @@
 import "../css/addNote.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Addnote () {
+    const navigation = useNavigate();
     const [post, setPost] = useState ({
       title: '',
-      body: ''
+      description: ''
     })
 
     // useEffect(() => {
@@ -19,9 +21,14 @@ function Addnote () {
     function handleSubmit(event) {
         event.preventDefault()
         console.log(post)
-        axios.post('https://note-be-blush.vercel.app/api/v1/note', {post})
-        .then(res => console.log(res.data.data))
-        .catch(err => console.log('Eror', err))
+        axios.post('https://note-be-blush.vercel.app/api/v1/note', post)
+        .then(res =>{
+          console.log('data API', res);
+            navigation('/')
+        })
+        .catch(err =>{
+            alert(err.res.data.eror)
+        })
     }
 
     return(
@@ -35,6 +42,8 @@ function Addnote () {
           <label for="fname">Title :</label><br/>
           <input type="text" onChange={handleInput} name="title" placeholder="type..."/><br/>
           <br/>
+          {/* <label for="name">Body :</label><br/>
+          <input type="text" onChange={handleInput} name="body" placeholder="type.."/><br/> */}
           <br/>
           <label for="lname">Description:</label><br/>
           <input type="text" onChange={handleInput} name="description" placeholder="type..."/><br/><br/>
