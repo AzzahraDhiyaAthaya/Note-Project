@@ -55,7 +55,7 @@ export default function Home() {
           <hr/>
           <p>{note.description}</p>
           <div className="note__footer" key={note.id} style={{ justifyContent: "flex-end" }}>
-              <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
+            <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
           </div>
         </div>
         <br/>
