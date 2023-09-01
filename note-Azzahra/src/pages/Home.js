@@ -64,6 +64,25 @@ export default function Home() {
   //       })
   //   }
 
+  const editById = id => {
+    const newNote = noteData.map((note) => {
+
+      if (note.id === id) {
+        return {...note, 
+          title: prompt ("title Baru : ", note.title),
+          description: prompt ("Description Baru : ", note.description)
+        
+        }
+      }
+
+      return note;
+
+    });
+
+    setNoteData(newNote);
+  };
+
+
   const deleteById = id => {
     setNoteData(oldData => {
       return oldData.filter(note => note.id !== id)
@@ -86,7 +105,8 @@ export default function Home() {
           <hr/>
           <p>{note.description}</p>
           <div className="note__footer" style={{ justifyContent: "flex-end" }}>
-          <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
+            <button className="note__delete" onClick={() => editById(note.id)}>Edit</button>
+            <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
           </div>
         </div>
         <br/>

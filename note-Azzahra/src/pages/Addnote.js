@@ -26,6 +26,7 @@ function Addnote () {
       axios.post('https://note-be-blush.vercel.app/api/v1/note', post)
       .then(result => {
         console.log('data API', result);
+        alert("Note has Post");
         navigation('/')
       })
       .catch(err => {
