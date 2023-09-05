@@ -1,8 +1,6 @@
 import "../css/home.css";
 import { React, useEffect, useState} from "react";
 import axios from "axios";
-import Layout from "./Layout";
-import { useParams } from "react-router-dom";
 
 
 export default function Home() {
@@ -83,18 +81,33 @@ export default function Home() {
   };
 
 
-  const deleteById = id => {
-    setNoteData(oldData => {
-      return oldData.filter(note => note.id !== id)
+  // const deleteById = id => {
+  //   setNoteData(oldData => {
+  //     return oldData.filter(note => note.id !== id)
       
+  //   })
+  //   alert("Note Has Deleted")
+  // }
+
+  const deleteById = id => {
+    axios.delete('https://note-be-blush.vercel.app/api/v1/note/43')
+    .then(() => {
+      alert("Note Has Deleted")
+      const newNote = noteData.filter((note) => {
+        return note.id !== id;
+      });
+      setNoteData(newNote);
     })
-    alert("Note Has Deleted")
+    .catch(err => {
+      console.log('error: ', err);
+      alert("error: ", err)
+    })
   }
 
     return( 
 
       <>
-      <hr/>
+      {/* <hr/> */}
       <div className="bs">
         <br/>
         {noteData.map((note, index) => {
@@ -105,8 +118,8 @@ export default function Home() {
           <hr/>
           <p>{note.description}</p>
           <div className="note__footer" style={{ justifyContent: "flex-end" }}>
-            <button className="note__delete" onClick={() => editById(note.id)}>Edit</button>
-            <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
+            <a href="Editnote"><button className="note__delete">Edit</button></a>
+            <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
           </div>
         </div>
         <br/>

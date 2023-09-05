@@ -36,7 +36,6 @@ function Addnote () {
 
     return(
       <>
-      <hr/>
       <div className="addNote">
         <h1>Add new note...</h1>
         <hr/>

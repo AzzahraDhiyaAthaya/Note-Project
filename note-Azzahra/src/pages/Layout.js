@@ -22,13 +22,14 @@ const Layout = () => {
               <button className="note__button">Add Note</button>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/contact">
               <button className="note__button">Contact</button>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
+      <hr/>
       <Outlet />
     </>
   )
