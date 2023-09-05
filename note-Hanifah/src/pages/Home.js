@@ -32,10 +32,36 @@ export default function Home() {
     //     })
     // }
 
+    // const editById = id => {
+    //   const newNote = noteData.map((note) => {
+
+    //     if (note.id === id) {
+    //       return {...note,
+    //         title: prompt ("Title Baru :", note.title),
+    //         description: prompt ("Description Baru :", note.description)
+    //       }
+    //     }
+
+    //     return note;
+
+    //   });
+
+    //   setNoteData(newNote);
+
+    // };
+
     const deleteById = id => {
-      setNoteData(oldData => {
-        alert("note has delted")
-        return oldData.filter(note => note.id !== id)
+      console.log(id)
+      axios.delete('https://note-be-blush.vercel.app/api/v1/note')
+      .then(() => {
+        alert("Note Has Deleted")
+        const newNote = noteData.filter ((note) => {
+          return note.id !== id;
+        });
+        setNoteData(newNote);
+      }).catch(err => {
+        console.log('error:', err);
+        alert("error : ", err)
       })
     }
 
@@ -54,8 +80,9 @@ export default function Home() {
           <h3>{note.title}</h3>
           <hr/>
           <p>{note.description}</p>
-          <div className="note__footer" key={note.id} style={{ justifyContent: "flex-end" }}>
-            <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
+          <div className="note__footer" style={{ justifyContent: "flex-end" }}>
+            <a href="Editnote"><button className="note__delete">Edit</button></a>            
+            <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
           </div>
         </div>
         <br/>

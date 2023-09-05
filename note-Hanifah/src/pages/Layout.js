@@ -23,9 +23,9 @@ const Layout = () => {
             </Link>
           </li>
           <li className="right">
-            <Link to="/contact">
-              <button className="note__button">Contact</button>
-            </Link>
+            {/* <Link to="/editnote">
+              <button className="note__button">Edit Note</button>
+            </Link> */}
           </li>
         </ul>
       </nav>
