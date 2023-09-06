@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="Addnote" element={<Addnote />} />
-          <Route path="Editnote" element={<Editnote />} />
+          <Route path="Editnote/:id" element={<Editnote />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
