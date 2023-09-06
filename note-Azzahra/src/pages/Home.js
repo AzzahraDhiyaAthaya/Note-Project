@@ -1,6 +1,7 @@
 import "../css/home.css";
 import { React, useEffect, useState} from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 export default function Home() {
@@ -118,8 +119,8 @@ export default function Home() {
           <hr/>
           <p>{note.description}</p>
           <div className="note__footer" style={{ justifyContent: "flex-end" }}>
-            <a href="Editnote"><button className="note__delete">Edit</button></a>
-            <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
+            <Link to={`/editnote/${note.id}`}><button className="note__delete">Edit</button></Link>
+            <button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button>
           </div>
         </div>
         <br/>

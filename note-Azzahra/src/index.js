@@ -14,7 +14,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="Addnote" element={<Addnote />} />
-          <Route path="Editnote" element={<EditNote />} />
+          <Route path="Editnote/:id" element={<EditNote />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditNote () {
 
@@ -44,32 +44,57 @@ function EditNote () {
     //     setNoteData(newNote);
     // }
 
+    const {id} = useParams();
     const navigation = useNavigate();
-    const [noteData, setNoteData] = useState([])
+    const [noteData, setNoteData] = useState([]);
       const [post, setPost] = useState({
+        id: 0,
         title: '',
         description: ''
-      })
+      });
 
     useEffect(() => {
-      axios.get('https://note-be-blush.vercel.app/api/v1/note/44').then(res => console.log(res.data.data))
+      console.log(id);
+      axios.get(`https://note-be-blush.vercel.app/api/v1/note/${id}`)
+      .then((res) => {
+        console.log(res.data.data)
+        setPost(res.data.data)
+      })
     }, [])
 
     const handleInput = (e) => {
       setPost({...post, [e.target.name]: e.target.value})
     }
 
+    // function handleSubmit(e) {
+    //   e.preventDefault()
+    //   console.log(post)
+    //   axios.put('https://note-be-blush.vercel.app/api/v1/note/44', post)
+    //   .then(result => {
+    //     console.log('data API', result);
+    //     alert("Note has update");
+    //     navigation('/')
+    //   })
+    //   .catch(err => {
+    //     alert(err.response.data.error)
+    //   })
+    // }
+
     function handleSubmit(e) {
       e.preventDefault()
       console.log(post)
-      axios.put('https://note-be-blush.vercel.app/api/v1/note/44', post)
-      .then(result => {
-        console.log('data API', result);
-        alert("Note has update");
-        navigation('/')
+      axios
+      .patch(`https://note-be-blush.vercel.app/api/v1/note/${post.id}`, {
+        title: post.title,
+        description: post.description,
       })
-      .catch(err => {
-        alert(err.response.data.error)
+      .then((result) => {
+        console.log("data API", result);
+        alert("Note has update");
+        navigation("/");
+      })
+      .catch((err) => {
+        alert(err.response.data.error);
       })
     }
 
@@ -81,11 +106,11 @@ function EditNote () {
         <div>
         <form onSubmit={handleSubmit}>
           <label for="fname">Title :</label><br/>
-          <input type="text" onChange={handleInput} name="title" placeholder="type..."/><br/>
+          <input value={post.title} type="text" onChange={handleInput} name="title" placeholder="type..."/><br/>
           <br/>
           <br/>
           <label for="lname">Description :</label><br/>
-          <input type="text" onChange={handleInput} name="description" placeholder="type..."/><br/><br/>
+          <input value={post.description} type="text" onChange={handleInput} name="description" placeholder="type..."/><br/><br/>
           <br/>
           <input className="submit" type="submit" value="Submit"/>
         </form> 
