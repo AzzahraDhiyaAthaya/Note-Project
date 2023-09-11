@@ -86,6 +86,7 @@ export default function Home() {
             <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
           </div>
         </div> */}
+
         <Container>
           <Row>
             <Col>
