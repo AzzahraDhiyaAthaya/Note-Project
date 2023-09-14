@@ -2,13 +2,14 @@ import "../css/home.css";
 import { React, useEffect, useState} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Card, Col, Row, Container } from "react-bootstrap";
+import { Button, Card, Col, Row, Container,Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
 export default function Home() {
   const [noteData, setNoteData] = useState([])
   
+ 
   useEffect(() => {
     axios.get('https://note-be-blush.vercel.app/api/v1/note')
     .then(result => {
@@ -27,23 +28,23 @@ export default function Home() {
   //       })
   //   }
 
-  const editById = id => {
-    const newNote = noteData.map((note) => {
+  // const editById = id => {
+  //   const newNote = noteData.map((note) => {
 
-      if (note.id === id) {
-        return {...note, 
-          title: prompt ("title Baru : ", note.title),
-          description: prompt ("Description Baru : ", note.description)
+  //     if (note.id === id) {
+  //       return {...note, 
+  //         title: prompt ("title Baru : ", note.title),
+  //         description: prompt ("Description Baru : ", note.description)
         
-        }
-      }
+  //       }
+  //     }
 
-      return note;
+  //     return note;
 
-    });
+  //   });
 
-    setNoteData(newNote);
-  };
+  //   setNoteData(newNote);
+  // };
 
 
   // const deleteById = id => {
@@ -69,14 +70,39 @@ export default function Home() {
     })
   }
 
+const [search, setSearch] = useState("");
+
     return( 
 
       <>
       <div className="bs">
+
+          <Form inline className="my-5">
+            <Row>
+              <Col xs="auto">
+                <Form.Control
+                  type="text"
+                  placeholder="Search..."
+                  className=" mr-sm-2"
+                  onChange={(event) =>{
+                    setSearch(event.target.value);
+                  }}
+                />
+              </Col>
+            </Row>
+          </Form>
+  
         <br/>
-        {noteData.map((note, index) => {
+        {noteData.filter((val) => {
+          if (search == "") {
+            return val
+          } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+            return val
+          }
+        }).map((note, index) => {
         return (
         <>
+
         {/* <div className="note">
           <h3>{note.title}</h3>
           <hr/>
