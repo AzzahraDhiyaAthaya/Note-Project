@@ -6,11 +6,14 @@ import {
   Button,
   Navbar,
   Container,
+  Form,
   NavbarBrand,
 
 } from "react-bootstrap";
 
 const Layout = () => {
+
+
   return (
     <>
       {/* <nav className="nav">
@@ -50,6 +53,17 @@ const Layout = () => {
           <Nav className="me-auto">
             <Nav.Link href="Addnote">Add Note</Nav.Link>
           </Nav>
+
+          {/* <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-info">Search</Button>
+          </Form> */}
+
         </Navbar.Collapse>
       </Container>
       </Navbar>

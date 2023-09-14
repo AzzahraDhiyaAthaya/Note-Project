@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   Col,
+  Form,
   Container,
   Row,
 } from "react-bootstrap";
@@ -51,7 +52,8 @@ export default function Home() {
 
   // if (!post) return null
 
-  const [noteData, setNoteData] = useState([])
+  const [noteData, setNoteData] = useState([]);
+
   
   useEffect(() => {
     axios.get('https://note-be-blush.vercel.app/api/v1/note')
@@ -113,12 +115,61 @@ export default function Home() {
     })
   }
 
+    const [src, setSrc] = useState("");
+
     return( 
 
       <>
-      {/* <hr/> */}
+
+        {/* <Form className="d-flex my-5 px-3">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              onChange={(e) => {
+                setSrc(e.target.value);
+              }}
+              aria-label="Search"
+            />
+          </Form> */}
+
+      <Form inline className="my-5 px-3">
+        <Row>
+          <Col xs="auto">
+            <Form.Control
+              type="text"
+              placeholder="Search note..."
+              onChange={(e) => {
+                setSrc(e.target.value);
+              }}
+              className=" mr-sm-2"
+            />
+            
+          </Col>
+         
+        </Row>
+      </Form>
+
+      {/* <FloatingLabel
+        controlId="floatingInput"
+        label="search note..."
+        onChange={(e) => {
+          setSrc(e.target.value);
+        }}
+        className="mb-3 my-5"
+      >
+        <Form.Control type="text" placeholder="search note..."/>
+      </FloatingLabel> */}
+
+      <hr/>
         <Container>
-        {noteData.map((note, index) => {
+        {noteData.filter((note) => {
+          if (src == "") {
+            return note;
+          } else if (note.title.toLowerCase().includes(src.toLocaleLowerCase())){
+            return note;
+          }
+        }).map((note, index) => {
         return (
         <>
         {/* <div className="note">
@@ -160,8 +211,8 @@ export default function Home() {
                 </blockquote>
               </Card.Body>
               <Card.Footer className="text-muted">
-              <Link to={`/editnote/${note.id}`}><Button variant="outline-secondary">Edit</Button></Link>{' '}
-              <a><Button variant="outline-secondary" onClick={() => deleteById(note.id)}>Delete</Button></a>
+              <Link to={`/editnote/${note.id}`}><Button variant="outline-primary">Edit</Button></Link>{' '}
+              <a><Button variant="outline-danger" onClick={() => deleteById(note.id)}>Delete</Button></a>
               </Card.Footer>
             </Card>
             </Row>
