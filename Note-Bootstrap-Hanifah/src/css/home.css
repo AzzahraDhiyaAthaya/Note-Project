@@ -5,6 +5,8 @@ body {
 
 .bs{
     padding: 25px;
+    text-align: center;
+    gap: 1rem;
 }
 
 /* .note {

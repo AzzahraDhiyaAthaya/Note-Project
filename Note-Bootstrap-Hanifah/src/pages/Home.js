@@ -2,9 +2,9 @@ import "../css/home.css";
 import { React, useEffect, useState} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Card, Col, Row, Container,Form } from "react-bootstrap";
+import { Button, Card, Col, Row, Container, Form, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import {BiSearchAlt, BiSolidTrash, BiSolidPencil} from "react-icons/bi";
 
 export default function Home() {
   const [noteData, setNoteData] = useState([])
@@ -76,64 +76,86 @@ const [search, setSearch] = useState("");
 
       <>
       <div className="bs">
+        
+          {/* <Form className="d-flex">
+            <Button variant="outline-primary" disabled>
+              <BsSearch />
+            </Button>
 
-          <Form inline className="my-5">
-            <Row>
-              <Col xs="auto">
-                <Form.Control
-                  type="text"
-                  placeholder="Search..."
-                  className=" mr-sm-2"
-                  onChange={(event) =>{
-                    setSearch(event.target.value);
-                  }}
-                />
-              </Col>
-            </Row>
-          </Form>
-  
+            <Form.Control
+              type="search"
+              placeholder="Search..."
+              className="me-2"
+              aria-label="Search"
+              onChange={(event) =>{
+                setSearch(event.target.value);
+              }}
+            />   
+          </Form> */}
+
+      <InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon1">
+          <BiSearchAlt/>
+        </InputGroup.Text>
+        <Form.Control
+          placeholder="Search Note..."
+          aria-label="Search"
+          aria-describedby="basic-addon1"
+          onChange={(event) => {
+            setSearch(event.target.value);
+          }}
+
+        />
+      </InputGroup>
+
+        
         <br/>
-        {noteData.filter((val) => {
-          if (search == "") {
-            return val
-          } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
-            return val
-          }
-        }).map((note, index) => {
-        return (
-        <>
-
-        {/* <div className="note">
-          <h3>{note.title}</h3>
-          <hr/>
-          <p>{note.description}</p>
-          <div className="note__footer" style={{ justifyContent: "flex-end" }}>
-            <Link to={`/editnote/${note.id}`}><button className="note__delete">Edit</button></Link>
-            <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
-          </div>
-        </div> */}
-
         <Container>
-          <Row>
-            <Col>
-              <Card>
-                <Card.Header as="h5">{note.title}</Card.Header>
-                <Card.Body>
-                  <Card.Title>{note.description}</Card.Title>
-                  <Card.Text>
-                    {note.createdAt}
-                  </Card.Text>
-                  <Link to={`/editnote/${note.id}`}><Button variant="outline-primary">Edit Note</Button></Link>{' '}
-                  <Button variant="outline-primary" onClick={() => deleteById(note.id)}>Delete</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+          <Row xs={1} md={3} className="g-4">
+            {noteData.filter((val) => {
+              if (search == "") {
+                return val
+              } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+                return val
+              }
+            }).map((note, index) => {
+            return (
+            <>
+
+            {/* <div className="note">
+              <h3>{note.title}</h3>
+              <hr/>
+              <p>{note.description}</p>
+              <div className="note__footer" style={{ justifyContent: "flex-end" }}>
+                <Link to={`/editnote/${note.id}`}><button className="note__delete">Edit</button></Link>
+                <a><button className="note__delete" onClick={() => deleteById(note.id)}>Delete</button></a>
+              </div>
+            </div> */}
+
+                <Col>
+                  <Card>
+                    <Card.Header as="h5">{note.title}</Card.Header>
+                    <Card.Body>
+                      <Card.Title>{note.description}</Card.Title>
+                      <Card.Text>
+                        
+                        {note.createdAt}
+                      </Card.Text>
+                      <Link to={`/editnote/${note.id}`}><Button variant="outline-primary">
+                        Edit 
+                        </Button></Link>{' '}
+                      <Button variant="outline-primary" onClick={() => deleteById(note.id)}>
+                        Delete
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
         <br/>
         <br/>
         </>
         )})}
+          </Row>
+        </Container>
       </div>
       </>
     )
