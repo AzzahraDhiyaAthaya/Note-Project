@@ -1,5 +1,7 @@
-body {
-  
+@import url('https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&display=swap');
+
+.top{
+    font-family: 'Averia Gruesa Libre', cursive;
 }
 
 .bs{

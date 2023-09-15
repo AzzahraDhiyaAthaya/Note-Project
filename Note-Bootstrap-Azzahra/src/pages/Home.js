@@ -2,12 +2,17 @@ import "../css/home.css";
 import { React, useEffect, useState} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../css/home.css";
+import {BsSearchHeart, BsTrashFill } from 'react-icons/bs';
+import {MdDateRange} from 'react-icons/md';
 import { 
   Button,
   Card,
   Col,
   Form,
   Container,
+  FloatingLabel,
+  InputGroup,
   Row,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -133,7 +138,7 @@ export default function Home() {
             />
           </Form> */}
 
-      <Form inline className="my-5 px-3">
+      {/* <Form inline className="my-5 px-3">
         <Row>
           <Col xs="auto">
             <Form.Control
@@ -148,21 +153,56 @@ export default function Home() {
           </Col>
          
         </Row>
-      </Form>
+      </Form> */}
 
-      {/* <FloatingLabel
-        controlId="floatingInput"
-        label="search note..."
-        onChange={(e) => {
-          setSrc(e.target.value);
-        }}
-        className="mb-3 my-5"
-      >
-        <Form.Control type="text" placeholder="search note..."/>
-      </FloatingLabel> */}
+      {/* <Container>
+      <Container>
+    <Container>*/}
+      <Container>
+      <Row>
+       {/* <Form className="my-5 d-flex">
+       
+            <Form.Control
+              type="text"
+              placeholder="Search note..."
+              onChange={(e) => {
+                setSrc(e.target.value);
+              }}
+              className=" mr-sm-2"
+            />
+            
+          
+              <BsSearchHeart />
+         
+      </Form> */}
+      <Col>
+      <Form inline className="my-5">
+      <InputGroup>
+        <InputGroup.Text id="basic-addon1">
+          <BsSearchHeart />
+        </InputGroup.Text>
+        <Form.Control
+          placeholder="Search Note..."
+          aria-label="Search Note..."
+          aria-describedby="basic-addon1"
+          onChange={(e) => {
+            setSrc(e.target.value);
+          }}
+        />
+      </InputGroup>
+      
+      </Form>
+      </Col>
+      
+      </Row>
+      </Container>
+      {/*</Container>
+      </Container>
+      </Container> */}
 
       <hr/>
         <Container>
+        <Row xs={1} md={3} className="g-4">
         {noteData.filter((note) => {
           if (src == "") {
             return note;
@@ -195,7 +235,7 @@ export default function Home() {
                 <Button variant="secondary">Go somewhere</Button>
               </Card.Body>
             </Card> */}
-            <Row className="my-5">
+            <Col>
             <Card>
               <Card.Header as="h5">{note.title}</Card.Header>
               <Card.Body>
@@ -206,7 +246,8 @@ export default function Home() {
                     {' '}
                   </p>
                   <footer className="blockquote-footer">
-                     <cite title="Source Title">{note.createdAt}</cite>
+                     {/* <cite title="Source Title">{note.createdAt}</cite> */}
+                     <MdDateRange size="16px" />{note.createdAt}
                   </footer>
                 </blockquote>
               </Card.Body>
@@ -215,10 +256,11 @@ export default function Home() {
               <a><Button variant="outline-danger" onClick={() => deleteById(note.id)}>Delete</Button></a>
               </Card.Footer>
             </Card>
-            </Row>
+            </Col>
 
         </>
         )})}
+        </Row>
         </Container>
       </>
     )
