@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Averia+Gruesa+Libre&display=swap');
+
+.top{
+    font-family: 'Averia Gruesa Libre', cursive;
+}
+
+.bs{
+    padding: 25px;
+}
+
+/* .note {
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 5px;
+    min-height: 90px;
+    flex-direction: column;
+    justify-content: space-between;
+    word-wrap: break-word;
+    background-color: lightcoral;
+} */
+
+.note__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* .note__delete {
+    background: transparent;
+    transition: 0.1s ease-in-out;
+    border: 1.5px solid;
+    border-radius: 10px;
+    color: #fff;
+    padding: 4px 10px;
+    margin-right: 20px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.note__delete:hover {
+    transform: scale(1.1);
+    background: lightslategray;
+    border: 1.5px solid snow;
+    color: snow;
+} */
